@@ -11,11 +11,11 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - 'docker build -t semaphore-angular-app:v1 .'
-            - 'docker tag semaphore-angular-app:v1 "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
-            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
-            - 'docker tag semaphore-angular-app:v1 "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_SHA"-"$SEMAPHORE_WORKFLOW_ID"'
-            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_SHA"-"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker build -t semaphore-angular-app:build .'
+            - 'docker tag semaphore-angular-app:build "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker tag semaphore-angular-app:build "$DOCKER_USERNAME"/semaphore-angular-app:latest'
+            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:latest'
       secrets:
         - name: dockerhub-secrets
       prologue:
