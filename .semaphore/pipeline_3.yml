@@ -1,0 +1,15 @@
+version: v1.0
+name: MACS Test Push
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Push
+    task:
+      jobs:
+        - name: set api url
+          commands:
+            - echo "job 1"
+        - name: push
+          commands: []

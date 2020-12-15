@@ -1,0 +1,15 @@
+version: v1.0
+name: Macs Dev Push
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Push
+    task:
+      jobs:
+        - name: push
+          commands: []
+promotions:
+  - name: Promote to MACS Test
+    pipeline_file: pipeline_3.yml

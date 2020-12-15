@@ -1,5 +1,5 @@
 version: v1.0
-name: Docker
+name: Auto Build & Test
 agent:
   machine:
     type: e1-standard-2
@@ -21,3 +21,22 @@ blocks:
       prologue:
         commands:
           - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+    dependencies: []
+  - name: Test
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: smoke
+          commands: []
+        - name: unit
+          commands: []
+        - name: integration
+          commands: []
+promotions:
+  - name: Promote to MACS Dev
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'
+  - name: DIO Dev Push
+    pipeline_file: pipeline_5.yml
