@@ -10,10 +10,12 @@ blocks:
       jobs:
         - name: docker build
           commands:
-            - checkout
-            - 'docker pull "$DOCKER_USERNAME"/semaphore-angular-app:latest || true'
-            - 'docker build --cache-from "$DOCKER_USERNAME"/semaphore-angular-app:latest -t semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID" .'
-            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+            - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - 'docker build -t semaphore-angular-app:v1 .'
+            - 'docker tag semaphore-angular-app:v1 "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
+            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
+            - 'docker tag semaphore-angular-app:v1 "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_SHA"-"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_SHA"-"$SEMAPHORE_WORKFLOW_ID"'
       secrets:
         - name: dockerhub-secrets
       prologue:
