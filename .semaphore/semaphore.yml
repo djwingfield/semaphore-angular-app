@@ -11,4 +11,5 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - docker build -t your-image .
+            - 'docker pull djwingfield/semaphore-angular-app:latest'
+            - 'docker build --cache-from djwingfield/semaphore-angular-app:latest -t djwingfield'
