@@ -11,7 +11,11 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - 'docker pull djwingfield/semaphore-angular-app:latest || true'
-            - 'docker build --cache-from djwingfield/semaphore-angular-app:latest -t semaphore-angular-app:v1 .'
-            - 'docker tag semaphore-angular-app:v1 djwingfield/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
-            - 'docker push djwingfield/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker pull "$DOCKER_USERNAME"/semaphore-angular-app:latest || true'
+            - 'docker build --cache-from "$DOCKER_USERNAME"/semaphore-angular-app:latest -t semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID" .'
+            - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+      secrets:
+        - name: dockerhub-secrets
+      prologue:
+        commands:
+          - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
