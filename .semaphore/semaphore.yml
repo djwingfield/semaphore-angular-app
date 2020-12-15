@@ -12,4 +12,4 @@ blocks:
           commands:
             - checkout
             - 'docker pull djwingfield/semaphore-angular-app:latest || true'
-            - 'docker build --cache-from djwingfield/semaphore-angular-app:latest -t djwingfield'
+            - 'docker build --cache-from djwingfield/semaphore-angular-app:latest -t djwingfield .'
