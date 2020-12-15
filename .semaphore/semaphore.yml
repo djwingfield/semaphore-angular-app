@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build
+  - name: 'Build '
     task:
       jobs:
         - name: docker build
@@ -25,7 +25,7 @@ blocks:
     dependencies: []
   - name: Test
     dependencies:
-      - Build
+      - 'Build '
     task:
       jobs:
         - name: smoke
