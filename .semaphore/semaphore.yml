@@ -11,4 +11,6 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - 'docker pull djwingfield/go_hw:latest || true'
+            - 'docker build -t semaphore-angular-app:v1'
+            - 'docker tag semaphore-angular-app:v1 djwingfield/semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker push semaphore-angular-app:"$SEMAPHORE_WORKFLOW_ID"'
