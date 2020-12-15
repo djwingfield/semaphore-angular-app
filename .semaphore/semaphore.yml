@@ -12,4 +12,5 @@ blocks:
           commands:
             - checkout
             - docker build -t djwingfield/semaphore-angular-app .
-            - 'docker push djwingfield/semaphore-angular-app:latest'
+            - 'docker tag djwingfield/semaphore-angular-app:$SEMAPHORE_WORKFLOW_ID'
+            - 'docker push djwingfield/semaphore-angular-app:$SEMAPHORE_WORKFLOW_ID'
