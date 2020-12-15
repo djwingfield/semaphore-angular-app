@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: docker build
           commands:
-            - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - checkout
             - 'docker build -t semaphore-angular-app:v1 .'
             - 'docker tag semaphore-angular-app:v1 "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
             - 'docker push "$DOCKER_USERNAME"/semaphore-angular-app:"$SEMAPHORE_GIT_BRANCH"'
